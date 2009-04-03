@@ -348,6 +348,10 @@ module Technoweenie # :nodoc:
           Technoweenie::AttachmentFu::Backends::S3Backend.port_string
         end
         
+        def s3_access
+          attachment_options[:s3_access]
+        end
+        
         def cloudfront_distribution_domain
           Technoweenie::AttachmentFu::Backends::S3Backend.distribution_domain
         end
@@ -367,7 +371,7 @@ module Technoweenie # :nodoc:
               old_full_filename,
               full_filename,
               bucket_name,
-              :access => attachment_options[:s3_access]
+              :access => s3_access
             )
 
             @old_filename = nil
@@ -381,7 +385,7 @@ module Technoweenie # :nodoc:
                 (temp_path ? File.open(temp_path) : temp_data),
                 bucket_name,
                 :content_type => content_type,
-                :access => attachment_options[:s3_access]
+                :access => s3_access
               )
             end
 
